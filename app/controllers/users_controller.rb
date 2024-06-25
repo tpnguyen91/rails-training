@@ -11,14 +11,19 @@ class UsersController < ApplicationController
       }, status: :created
   end
 
+    def me 
+        render json: current_user, status: :ok
+    end
+
+
   private
 
     def user_params 
-        params.permit(:email, :password_digest, :full_name)
+        params.permit(:email, :password, :full_name)
     end
 
     def handle_invalid_record(e)
-            render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
 end
